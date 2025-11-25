@@ -34,11 +34,6 @@ app.get('/products/:id', async (c) => {
 });
 
 app.post('/products', async (c) => {
-  // Fail randomly 50% of the time
-  if (Math.random() < 0.5) {
-    return c.json({ error: 'Internal server error' }, 500);
-  }
-
   const body = await c.req.json();
   const result = await db.query<Product>(
     'INSERT INTO products (name, manufacture, output, price, width, height) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;',
@@ -55,6 +50,11 @@ app.post('/products', async (c) => {
 });
 
 app.put('/products/:id', async (c) => {
+  // Fail randomly 50% of the time
+  if (Math.random() < 0.5) {
+    return c.json({ error: 'Internal server error' }, 500);
+  }
+
   const id = parseInt(c.req.param('id'));
   const body = await c.req.json();
   const result = await db.query<Product>(
