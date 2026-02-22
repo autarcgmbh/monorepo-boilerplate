@@ -169,7 +169,7 @@ func main() {
 	r.Put("/products/{id}", updateProduct)
 	r.Delete("/products/{id}", deleteProduct)
 
-	port := 3002
+	port := 8080
 	fmt.Printf("Server running on http://localhost:%d\n", port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%d", port), r))
 }
